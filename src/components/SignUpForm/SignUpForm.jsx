@@ -20,7 +20,7 @@ class SignUpForm extends Component {
           
           const user = await signUp(formData);
 
-          console.log(user)
+          this.props.setUser(user)
         } catch {
           this.setState({ error: 'Sign up failed, try again' })
         }
@@ -50,7 +50,7 @@ class SignUpForm extends Component {
                 <button type="submit" disabled={disable}>Sign Up</button>
               </form>
             </div>
-            <p className="error-message">i refuse to use nbsp {this.state.error}</p>
+            <p className="error-message"> {this.state.error}</p>
           </div>
         );
     }
