@@ -12,6 +12,8 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
+app.use('/api/users', require('./routes/api/users')); 
+
 // We'll respond to any paths we don't recognise by sending
 // the React index.html.
 app.get('/*', function (req, res) {
