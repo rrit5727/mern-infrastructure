@@ -1,49 +1,45 @@
 import { useState } from "react";
-import { signUp } from '../../utilities/users-service';
+import * as usersService from '../../utilities/users-service';
 
-const LoginForm = ({ setUser }) => {
-    const [formData, setFormData] = useState({
-        name: '',        
-        password: '',        
-        error: ''
+export default function LoginForm({ setUser }) {
+    const [credentials, setCredentials] = useState({
+      email: '',
+      password: ''
     });
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        
-        try {
-            const user = await signUp(formData);
-            setUser(user);
-        } catch {
-            setFormData(prevState => ({ ...prevState, error: 'Sign up failed, try again' }));
-        }
+    const [error, setError] = useState('');
+  
+    function handleChange(evt) {
+      setCredentials({ ...credentials, [evt.target.name]: evt.target.value });
+      setError('');
     }
-
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value,
-            error: ''
-        }));
+  
+    async function handleSubmit(evt) {
+      // Prevent form from being submitted to the server
+      evt.preventDefault();
+      try {
+        // The promise returned by the signUp service method 
+        // will resolve to the user object included in the
+        // payload of the JSON Web Token (JWT)
+        const user = await usersService.login(credentials);
+        setUser(user);
+      } catch (err) {
+        console.error(err);
+        setError('Log In Failed - Try Again');
+      }
     }
-
-    const disable = formData.password !== formData.confirm;
-
+  
     return (
-        <div>
-            <div className="form-container">
-                <form autoComplete="off" onSubmit={handleSubmit}>
-                    <label>Name</label>
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} required />                    
-                    <label>Password</label>
-                    <input type="password" name="password" value={formData.password} onChange={handleChange} required />                    
-                    <button type="submit" disabled={disable}>Login</button>
-                </form>
-            </div>
-            <p className="error-message">{formData.error}</p>
+      <div>
+        <div className="form-container">
+          <form autoComplete="off" onSubmit={handleSubmit}>
+            <label>Email</label>
+            <input type="text" name="email" value={credentials.email} onChange={handleChange} required />
+            <label>Password</label>
+            <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
+            <button type="submit">Log In</button>
+          </form>
         </div>
+        <p className="error-message">&nbsp;{error}</p>
+      </div>
     );
-}
-
-export default LoginForm;
+  }

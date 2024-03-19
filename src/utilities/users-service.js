@@ -13,10 +13,12 @@ export async function signUp(userData) {
 
 // export async funtion LoginForm(user)
 
-
-  export function logOut() {
-    localStorage.removeItem('token');
-  }
+export async function login(credentials) {
+  const token = await usersAPI.login(credentials);
+  localStorage.setItem('token', token);
+  return getUser();
+}
+  
 
 export function getToken() {
     const token = localStorage.getItem('token');
@@ -33,13 +35,17 @@ export function getToken() {
     return token;
 }
 
-export function getUser() {
-    const token = getToken();
-
-    return token ? JSON.parse(atob(token.split('.')[1])).user : null 
-}
-
 export function checkToken() {
   return usersAPI.checkToken();
     .then(dateStr => mew Date(dateStr))
+}
+
+export function getUser() {
+  const token = getToken();
+
+  return token ? JSON.parse(atob(token.split('.')[1])).user : null 
+}
+
+export function logOut() {
+  localStorage.removeItem('token');
 }

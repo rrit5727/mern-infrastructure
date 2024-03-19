@@ -7,5 +7,6 @@ router.get('/check-token', ensureLoggedIn, usersCtrl.checkToken)
 
 
 router.post('/', usersCtrl.create);
+router.post('/login', usersController.login);
 
 module.exports = router;
