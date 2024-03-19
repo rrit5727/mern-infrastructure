@@ -40,5 +40,6 @@ export function getUser() {
 }
 
 export function checkToken() {
-  alert('clicked');
+  return usersAPI.checkToken();
+    .then(dateStr => mew Date(dateStr))
 }

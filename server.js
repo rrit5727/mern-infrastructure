@@ -20,6 +20,8 @@ app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
+app.use(require('./config/checkToken'));
+
 const port = process.env.PORT || 3001;
 
 app.listen(port, function () {
