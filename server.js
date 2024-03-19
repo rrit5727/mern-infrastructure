@@ -12,6 +12,8 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
+app.use(require('./config/checkToken'));
+
 app.use('/api/users', require('./routes/api/users')); 
 
 // We'll respond to any paths we don't recognise by sending
@@ -20,7 +22,6 @@ app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
-app.use(require('./config/checkToken'));
 
 const port = process.env.PORT || 3001;
 

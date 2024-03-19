@@ -14,7 +14,7 @@ const OrderHistoryPage = () => {
             <h1>
                 OrderHistoryPage
             </h1>
-            <button onClick={ handleCheckToken }>Check when myn login expires </button>
+            <button onClick={ handleCheckToken }>Check when my login expires </button>
         </>
     )
 };

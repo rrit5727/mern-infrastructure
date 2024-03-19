@@ -36,8 +36,8 @@ export function getToken() {
 }
 
 export function checkToken() {
-  return usersAPI.checkToken();
-    .then(dateStr => mew Date(dateStr))
+  return usersAPI.checkToken()
+    .then(dateStr => new Date(dateStr))
 }
 
 export function getUser() {

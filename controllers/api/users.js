@@ -2,11 +2,7 @@ const  User = require('../../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-module.exports = {
-    create,
-    login,
-    checkToken
-}
+
 
 async function create(req, res) {
     try {
@@ -35,7 +31,7 @@ const login = async (req, res) => {
 };
 
 
-function checkToken() {
+function checkToken(req, res) {
     console.log('req.user', req.user)
     res.json(req.exp);
 }
@@ -51,3 +47,8 @@ function createJWT(user) {
     )
 }
 
+module.exports = {
+    create,
+    login,
+    checkToken
+}
