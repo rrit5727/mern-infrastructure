@@ -1,10 +1,13 @@
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
+import LoginForm from "../../components/LoginForm/LoginForm"; 
+
 
 const AuthPage = ({setUser}) => {
     return (
         <main>
             <h1>AuthPage</h1>
             <SignUpForm setUser={setUser}/>
+            <LoginForm />
         </main>
     )
 };

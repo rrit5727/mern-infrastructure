@@ -1,5 +1,8 @@
 
-import * as usersAPI from './users-api';
+import * as usersAPI from './users-api'; 
+
+//sends data to the server via the API function and gets back a token
+//which is stored in localStorage
 
 export async function signUp(userData) {
     
@@ -7,6 +10,8 @@ export async function signUp(userData) {
     localStorage.setItem('token', token);
     return getUser();
   }
+
+// export async funtion LoginForm(user)
 
 
   export function logOut() {
@@ -34,3 +39,6 @@ export function getUser() {
     return token ? JSON.parse(atob(token.split('.')[1])).user : null 
 }
 
+export function checkToken() {
+  alert('clicked');
+}
